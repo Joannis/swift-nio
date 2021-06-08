@@ -18,7 +18,7 @@ import NIO
 #if compiler(>=5.5) && $AsyncAwait
 import _Concurrency
 
-@available(macOS 9999, iOS 9999, watchOS 9999, tvOS 9999, *)
+@available(macOS 12, iOS 15, *)
 extension EventLoopFuture {
     /// Get the value/error from an `EventLoopFuture` in an `async` context.
     ///
@@ -38,7 +38,7 @@ extension EventLoopFuture {
     }
 }
 
-@available(macOS 9999, iOS 9999, watchOS 9999, tvOS 9999, *)
+@available(macOS 12, iOS 15, *)
 extension EventLoopPromise {
     /// Complete a future with the result (or error) of the `async` function `body`.
     ///
@@ -47,7 +47,7 @@ extension EventLoopPromise {
     /// - parameters:
     ///   - body: The `async` function to run.
     public func completeWithAsync(_ body: @escaping () async throws -> Value) {
-        Task {
+        detach {
             do {
                 let value = try await body()
                 self.succeed(value)
@@ -58,7 +58,7 @@ extension EventLoopPromise {
     }
 }
 
-@available(macOS 9999, iOS 9999, watchOS 9999, tvOS 9999, *)
+@available(macOS 12, iOS 15, *)
 extension Channel {
     /// Shortcut for calling `write` and `flush`.
     ///
@@ -81,7 +81,7 @@ extension Channel {
     }
 }
 
-@available(macOS 9999, iOS 9999, watchOS 9999, tvOS 9999, *)
+@available(macOS 12, iOS 15, *)
 extension ChannelOutboundInvoker {
     /// Register on an `EventLoop` and so have all its IO handled.
     ///
@@ -134,7 +134,7 @@ extension ChannelOutboundInvoker {
     }
 }
 
-@available(macOS 9999, iOS 9999, watchOS 9999, tvOS 9999, *)
+@available(macOS 12, iOS 15, *)
 extension ChannelPipeline {
     public func addHandler(_ handler: ChannelHandler,
                            name: String? = nil,
